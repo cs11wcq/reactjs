@@ -22,8 +22,12 @@ class GoogleAuth extends React.Component {
       })
     });
   }
-
-  onAuthChange = isSignedIn => {
+  //google knows when there is a change,
+  //and notified me (this component)
+  // whether the user is signed in or not
+  //by alerting the call back function onAuthChange
+  onAuthChange = (isSignedIn) => {
+    console.log('listener is responding')
     if (isSignedIn) {
       this.props.signIn();
     }
@@ -33,10 +37,13 @@ class GoogleAuth extends React.Component {
     }
   };
 
-  handleOnClickSignIn=() => {
+  handleOnClickSignInShowLoginPrompt=() => {
+    //this just calls the pop up to sign in
+    console.log('handleOnClickSignInShowLoginPrompt');
     this.auth.signIn();
   };
   handleOnClickSignOut = () => {
+    console.log('handleOnClickSignOut')
     this.auth.signOut();
   };
   renderAuthButton() {
@@ -54,11 +61,12 @@ class GoogleAuth extends React.Component {
           </button>
       )
     }
+    //not signed in
     else
     {
       return (
           <button className = "ui red google button"
-                  onClick={() => {this.handleOnClickSignIn()}}>
+                  onClick={() => {this.handleOnClickSignInShowLoginPrompt()}}>
             <i className="google icon" />
             Sign In With GOOGLE
           </button>
@@ -73,6 +81,7 @@ class GoogleAuth extends React.Component {
 }
 
 const mapStateToProps = (state) => {
+  console.log('mapStateToProps',state.auth.isSignedIn);
   return {isSignedInProp: state.auth.isSignedIn}
 }
 export default connect(mapStateToProps, {

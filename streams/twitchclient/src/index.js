@@ -8,7 +8,7 @@ import reducers from './reducers';
 
 const store = createStore(reducers);
 store.subscribe(() => {
-  console.log('SUBSCRIBE CHANGE', store.getState());
+  console.log('STOZZZZZRE STATE CHANGE', store.getState());
 });
 ReactDOM.render(
     <Provider store={store}>

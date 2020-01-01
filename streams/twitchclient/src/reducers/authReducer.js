@@ -4,9 +4,11 @@ const INITIAL_STATE = {
 
 export default (state = INITIAL_STATE, action) => {
   switch(action.type) {
-    case 'SIGN_IN':
+    case 'SIGNED_IN':
+      console.log('Changing state isSignedIn true');
       return {...state, isSignedIn: true};
-    case 'SIGN_OUT':
+    case 'SIGNED_OUT':
+      console.log('Changing state isSignedIn false');
       return {...state, isSignedIn: false};
     default:
       return state;
