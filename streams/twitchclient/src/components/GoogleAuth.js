@@ -1,4 +1,6 @@
 import React from 'react';
+import {connect} from 'react-redux';
+import {signIn, signOut} from '../actions';
 
 //214
 
@@ -6,7 +8,6 @@ function helo() {
   return 'hello';
 }
 class GoogleAuth extends React.Component {
-  state = {isSignedIn: null};
 
   componentDidMount() {
     //the following just initializes Google's API library with the OAuth clientID
@@ -16,21 +17,52 @@ class GoogleAuth extends React.Component {
         scope: 'email'
       }).then(()=> {
         this.auth = window.gapi.auth2.getAuthInstance(); //get auth object
-
-        this.setState({isSignedIn: this.auth.isSignedIn.get()}) //check if signed in
+        this.onAuthChange(this.auth.isSignedIn.get());
+        this.auth.isSignedIn.listen(this.onAuthChange);
       })
     });
   }
-  renderAuthButton() {
-    if (this.state.isSignedIn === null) {
-      return <div>I don't know if we are signed in</div>
-    }
-    else if (this.state.isSignedIn) {
-      return <div> I am signed in </div>
+
+  onAuthChange = isSignedIn => {
+    if (isSignedIn) {
+      this.props.signIn();
     }
     else
     {
-      return <div> I am not signed in</div>
+      this.props.signOut();
+    }
+  };
+
+  handleOnClickSignIn=() => {
+    this.auth.signIn();
+  };
+  handleOnClickSignOut = () => {
+    this.auth.signOut();
+  };
+  renderAuthButton() {
+    const {isSignedInProp}=this.props;
+    if (isSignedInProp === null) {
+      return null;
+    }
+    else if (isSignedInProp) {
+      return (
+          <button className = "ui red google button"
+                  onClick = {this.handleOnClickSignOut}
+          >
+            <i className="google icon" />
+            Sign Out
+          </button>
+      )
+    }
+    else
+    {
+      return (
+          <button className = "ui red google button"
+                  onClick={() => {this.handleOnClickSignIn()}}>
+            <i className="google icon" />
+            Sign In With GOOGLE
+          </button>
+      )
     }
   }
   render() {
@@ -40,4 +72,10 @@ class GoogleAuth extends React.Component {
   }
 }
 
-export default GoogleAuth;
+const mapStateToProps = (state) => {
+  return {isSignedInProp: state.auth.isSignedIn}
+}
+export default connect(mapStateToProps, {
+  signIn: signIn,
+  signOut: signOut
+})(GoogleAuth);
