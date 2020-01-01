@@ -3,10 +3,6 @@ import {connect} from 'react-redux';
 import {signIn, signOut} from '../actions';
 
 //214
-
-function helo() {
-  return 'hello';
-}
 class GoogleAuth extends React.Component {
 
   componentDidMount() {
