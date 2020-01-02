@@ -47,14 +47,14 @@ class GoogleAuth extends React.Component {
     this.auth.signOut();
   };
   renderAuthButton() {
-    console.log('renderAuthButton ', this.props.isSignedInProp);
+    // console.log('renderAuthButton ', this.props.isSignedInProp);
     const {isSignedInProp}=this.props;
     if (isSignedInProp === null) {
       console.log('return null');
       return null;
     }
     else if (isSignedInProp) {
-      console.log('renderAuthButton show SIGN OUT button');
+      // console.log('renderAuthButton show SIGN OUT button');
 
       return (
           <button className = "ui red google button"
@@ -68,7 +68,7 @@ class GoogleAuth extends React.Component {
     //not signed in
     else
     {
-      console.log('renderAuthButton show SIGN IN button');
+      // console.log('renderAuthButton show SIGN IN button');
       return (
           <button className = "ui red google button"
                   onClick={() => {this.handleOnClickSignInShowLoginPrompt()}}>
@@ -87,8 +87,8 @@ class GoogleAuth extends React.Component {
 }
 
 const mapStateToProps = (state) => {
-  console.log('mapStateToProps',state);
-  console.log('mapStateToProps', state.auth.isSignedIn);
+  // console.log('mapStateToProps',state);
+  // console.log('mapStateToProps', state.auth.isSignedIn);
   return {isSignedInProp: state.auth.isSignedIn}
 }
 export default connect(mapStateToProps, {

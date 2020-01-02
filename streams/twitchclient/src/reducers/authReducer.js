@@ -14,7 +14,7 @@ export default (state = INITIAL_STATE, action) => {
       console.log('Changing state isSignedIn false');
       return {...state, isSignedIn: false, userId: null};
     default:
-      console.log(action.type, 'INITIALLY NULL');
+      // console.log(action.type, 'INITIALLY NULL');
       return state;
   }
 };
