@@ -13,7 +13,10 @@ class GoogleAuth extends React.Component {
         scope: 'email'
       }).then(()=> {
         this.auth = window.gapi.auth2.getAuthInstance(); //get auth object
+        console.log('COMPONENT DID MOUNT');
         this.onAuthChange(this.auth.isSignedIn.get());
+        //put a listener on when the status of the sign in changes
+        //if the status changes, then call onAuthChange callback
         this.auth.isSignedIn.listen(this.onAuthChange);
       })
     });
@@ -43,11 +46,15 @@ class GoogleAuth extends React.Component {
     this.auth.signOut();
   };
   renderAuthButton() {
+    console.log('renderAuthButton ', this.props.isSignedInProp);
     const {isSignedInProp}=this.props;
     if (isSignedInProp === null) {
+      console.log('return null');
       return null;
     }
     else if (isSignedInProp) {
+      console.log('renderAuthButton show SIGN OUT button');
+
       return (
           <button className = "ui red google button"
                   onClick = {this.handleOnClickSignOut}
@@ -60,6 +67,7 @@ class GoogleAuth extends React.Component {
     //not signed in
     else
     {
+      console.log('renderAuthButton show SIGN IN button');
       return (
           <button className = "ui red google button"
                   onClick={() => {this.handleOnClickSignInShowLoginPrompt()}}>
@@ -70,6 +78,7 @@ class GoogleAuth extends React.Component {
     }
   }
   render() {
+    console.log("RENDER")
     return <div>
       {this.renderAuthButton()}
     </div>
@@ -77,7 +86,8 @@ class GoogleAuth extends React.Component {
 }
 
 const mapStateToProps = (state) => {
-  console.log('mapStateToProps',state.auth.isSignedIn);
+  console.log('mapStateToProps',state);
+  console.log('mapStateToProps', state.auth.isSignedIn);
   return {isSignedInProp: state.auth.isSignedIn}
 }
 export default connect(mapStateToProps, {

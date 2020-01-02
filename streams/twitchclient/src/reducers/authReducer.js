@@ -1,6 +1,6 @@
 const INITIAL_STATE = {
   isSignedIn: null
-}
+};
 
 export default (state = INITIAL_STATE, action) => {
   switch(action.type) {
@@ -11,6 +11,7 @@ export default (state = INITIAL_STATE, action) => {
       console.log('Changing state isSignedIn false');
       return {...state, isSignedIn: false};
     default:
+      console.log(action.type, 'INITIALLY NULL');
       return state;
   }
 };
