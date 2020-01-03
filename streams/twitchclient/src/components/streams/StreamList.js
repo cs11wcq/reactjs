@@ -15,9 +15,9 @@ class StreamList extends React.Component {
     if (stream.userId === this.props.currentUserId) {
       return (
           <div className="right floated content">
-            <button className="ui button primary">
+            <Link to={`/streams/edit/${stream.id}`} className="ui button primary">
               Edit
-            </button>
+            </Link>
             <button className="ui button negative">
               Delete
             </button>
@@ -41,6 +41,7 @@ class StreamList extends React.Component {
   }
 
   //254 want to show "create stream" button only if user is signed in
+  //clicking this button takes us to localhost:3000/streams/new via Link
   renderCreate() {
     if (this.props.isSignedIn) {
       return (

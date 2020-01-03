@@ -10,7 +10,6 @@ const Header = () => {
           Streamer
         </Link>
         <div className="right menu">
-
           <Link to="/" className={"item"}>
             All STREAMS
           </Link>
@@ -18,6 +17,6 @@ const Header = () => {
         </div>
       </div>
   )
-}
+};
 
 export default Header;

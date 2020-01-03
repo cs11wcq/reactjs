@@ -1,4 +1,5 @@
 import streams from '../apis/streams';
+import history from '../history';
 import {
   SIGNED_IN,
   SIGNED_OUT,
@@ -37,6 +38,7 @@ export const createStream = (formValues) => {
     dispatch({type: CREATE_STREAM, payload: response.data})
     //Do some programmatic navigation to get the user
     //back to the root route (http://localhost:3000/). #255
+    history.push('/');
   }
 };
 
@@ -58,7 +60,6 @@ export const editStream = (id, formValues) => {
     const response = await streams.put(`/streams/${id}`, formValues);
     dispatch({type: EDIT_STREAM, payload: response.data});
   };
-
 };
 
 export const deleteStream = (id) => async dispatch => {
