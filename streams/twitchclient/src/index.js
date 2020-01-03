@@ -2,9 +2,11 @@ import React from 'react';
 import ReactDOM from 'react-dom';
 import {Provider} from 'react-redux';
 import {createStore, applyMiddleware, compose} from 'redux';
+import reduxThunk from 'redux-thunk';
 
 import App from './components/App';
 import reducers from './reducers';
+
 
 /* //the following is just to log when the state changes
 const store = createStore(reducers);
@@ -16,7 +18,7 @@ store.subscribe(() => {
 const composeEnhancers = window.__REDUX_DEVTOOLS_EXTENSION_COMPOSE__ || compose;
 const store = createStore(
     reducers,
-    composeEnhancers(applyMiddleware())
+    composeEnhancers(applyMiddleware(reduxThunk))
 );
 
 ReactDOM.render(
