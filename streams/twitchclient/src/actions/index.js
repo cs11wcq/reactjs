@@ -35,6 +35,8 @@ export const createStream = (formValues) => {
     const response = await streams.post('/streams', {...formValues, userId});
 
     dispatch({type: CREATE_STREAM, payload: response.data})
+    //Do some programmatic navigation to get the user
+    //back to the root route (http://localhost:3000/). #255
   }
 };
 
